@@ -24,6 +24,10 @@ class Life:
         if cell.entity is None:
             cell.entity = type(self)(cell.x, cell.y)
 
+    def die(self, world):
+        del world.get_cell(self.x, self.y).entity
+        world.get_cell(self.x, self.y).entity = None
+
 
 class Animal(Life):
 
@@ -48,7 +52,6 @@ class Animal(Life):
     def is_food(self, entity):
         pass
 
-
     def is_mate(self, entity):
         return isinstance(entity, type(self)) and self.sex != entity.sex
 
@@ -72,13 +75,8 @@ class Animal(Life):
                                 min(self.hunger+self.MOVE_CALORIES, self.MAX_HUNGER))
 
     def eat(self, world, entity):
-        world.get_cell(entity.x, entity.y).entity = None
         self.hunger = max(self.hunger-entity.CALORIES, 0)
-        del entity
-
-    def die(self, world):
-        del world.get_cell(self.x, self.y).entity
-        world.get_cell(self.x, self.y).entity = None
+        entity.die(world)
 
     def update(self, world:World):
 

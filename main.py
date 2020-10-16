@@ -7,7 +7,7 @@ from animal import Deer, Lion
 from world import World
 
 NUM_ITERATIONS = 500
-NUM_TREES = 100
+NUM_TREES = 200
 NUM_DEERS = 20
 NUM_LIONS = 10
 SLEEP_TIME = 0.2
